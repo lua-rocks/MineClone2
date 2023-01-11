@@ -811,7 +811,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"label[0,7;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
 			"list[current_player;default;0,7.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,7.5,9,3)..
-			"list[current_player;default;0,10.75;9,1;]"..
+			"list[current_player;main;0,10.75;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,10.75,9,1)..
 			-- BEGIN OF LISTRING WORKAROUND
 			"listring[current_player;default]"..
@@ -1144,7 +1144,7 @@ local function formspec_shulker_box(name)
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
 	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;default;0,7.74;9,1;]"..
+	"list[current_player;main;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"listring[context;default]"..
 	"listring[current_player;default]"..
