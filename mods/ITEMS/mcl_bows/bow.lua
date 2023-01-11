@@ -167,25 +167,22 @@ S("The speed and damage of the arrow increases the longer you charge. The regula
 -- Iterates through player inventory and resets all the bows in "charging" state back to their original stage
 local function reset_bows(player)
 	local inv = player:get_inventory()
-	for _, inv_name in ipairs({"default", "main"}) do
-		local list = inv:get_list(inv_name)
-		if list then
-			for place, stack in pairs(list) do
-				if stack:get_name() == "mcl_bows:bow" or stack:get_name() == "mcl_bows:bow_enchanted" then
-					stack:get_meta():set_string("active", "")
-				elseif stack:get_name()=="mcl_bows:bow_0" or stack:get_name()=="mcl_bows:bow_1" or stack:get_name()=="mcl_bows:bow_2" then
-					stack:set_name("mcl_bows:bow")
-					stack:get_meta():set_string("active", "")
-					list[place] = stack
-				elseif stack:get_name()=="mcl_bows:bow_0_enchanted" or stack:get_name()=="mcl_bows:bow_1_enchanted" or stack:get_name()=="mcl_bows:bow_2_enchanted" then
-					stack:set_name("mcl_bows:bow_enchanted")
-					stack:get_meta():set_string("active", "")
-					list[place] = stack
-				end
+	local list = inv:get_list("main")
+	if list then
+		for place, stack in pairs(list) do
+			if stack:get_name() == "mcl_bows:bow" or stack:get_name() == "mcl_bows:bow_enchanted" then
+				stack:get_meta():set_string("active", "")
+			elseif stack:get_name()=="mcl_bows:bow_0" or stack:get_name()=="mcl_bows:bow_1" or stack:get_name()=="mcl_bows:bow_2" then
+				stack:set_name("mcl_bows:bow")
+				stack:get_meta():set_string("active", "")
+				list[place] = stack
+			elseif stack:get_name()=="mcl_bows:bow_0_enchanted" or stack:get_name()=="mcl_bows:bow_1_enchanted" or stack:get_name()=="mcl_bows:bow_2_enchanted" then
+				stack:set_name("mcl_bows:bow_enchanted")
+				stack:get_meta():set_string("active", "")
+				list[place] = stack
 			end
-			inv:set_list(inv_name, list)
-			break
 		end
+		inv:set_list("main", list)
 	end
 end
 
