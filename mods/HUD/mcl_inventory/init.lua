@@ -127,10 +127,7 @@ local function set_inventory(player, armor_change_only)
 		"listring[current_player;default]" ..
 		"listring[current_player;main]" ..
 		"listring[current_player;default]" ..
-		"listring[current_player;armor]" ..
-		"listring[current_player;default]" ..
-		"listring[current_player;craft]" ..
-		"listring[current_player;default]"
+		"listring[current_player;armor]"
 
 	player:set_inventory_formspec(form)
 end
