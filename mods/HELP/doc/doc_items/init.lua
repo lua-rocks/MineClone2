@@ -1324,10 +1324,15 @@ end
 
 local function reveal_items_in_inventory(player)
 	local inv = player:get_inventory()
-	local list = inv:get_list("default")
-	for l=1, #list do
-		reveal_item(player:get_player_name(), list[l]:get_name())
+	local function reveal_items_in_list(list)
+		list = inv:get_list(list)
+		if not list then return end
+		for l=1, #list do
+			reveal_item(player:get_player_name(), list[l]:get_name())
+		end
 	end
+	reveal_items_in_list("default")
+	reveal_items_in_list("main")
 end
 
 minetest.register_on_dignode(function(pos, oldnode, digger)
