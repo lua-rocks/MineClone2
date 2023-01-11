@@ -366,13 +366,16 @@ function ARROW_ENTITY.on_step(self, dtime)
 		for _,obj in ipairs(objects) do
 			if obj:is_player() then
 				if self._collectable and not minetest.is_creative_enabled(obj:get_player_name()) then
-					if obj:get_inventory():room_for_item("default", "mcl_bows:rocket") then
-						obj:get_inventory():add_item("default", "mcl_bows:rocket")
-						minetest.sound_play("item_drop_pickup", {
-							pos = pos,
-							max_hear_distance = 16,
-							gain = 1.0,
-						}, true)
+					for _, inv_name in ipairs({"default", "main"}) do
+						if obj:get_inventory():room_for_item(inv_name, "mcl_bows:rocket") then
+							obj:get_inventory():add_item(inv_name, "mcl_bows:rocket")
+							minetest.sound_play("item_drop_pickup", {
+								pos = pos,
+								max_hear_distance = 16,
+								gain = 1.0,
+							}, true)
+							break
+						end
 					end
 				end
 				mcl_burning.extinguish(self.object)

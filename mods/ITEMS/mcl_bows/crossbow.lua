@@ -81,12 +81,14 @@ end
 local function get_arrow(player)
 	local inv = player:get_inventory()
 	local arrow_stack, arrow_stack_id
-	for i=1, inv:get_size("default") do
-		local it = inv:get_stack("default", i)
-		if not it:is_empty() and minetest.get_item_group(it:get_name(), "ammo_crossbow") ~= 0 then
-			arrow_stack = it
-			arrow_stack_id = i
-			break
+	for _, inv_name in ipairs({"default", "main"}) do
+		for i=1, inv:get_size(inv_name) do
+			local it = inv:get_stack(inv_name, i)
+			if not it:is_empty() and minetest.get_item_group(it:get_name(), "ammo_crossbow") ~= 0 then
+				arrow_stack = it
+				arrow_stack_id = i
+				break
+			end
 		end
 	end
 	return arrow_stack, arrow_stack_id
@@ -188,21 +190,26 @@ S("The speed and damage of the arrow increases the longer you charge. The regula
 -- Iterates through player inventory and resets all the bows in "charging" state back to their original stage
 local function reset_bows(player)
 	local inv = player:get_inventory()
-	local list = inv:get_list("default")
-	for place, stack in pairs(list) do
-		if stack:get_name() == "mcl_bows:crossbow" or stack:get_name() == "mcl_bows:crossbow_enchanted" then
-			stack:get_meta():set_string("active", "")
-		elseif stack:get_name()=="mcl_bows:crossbow_0" or stack:get_name()=="mcl_bows:crossbow_1" or stack:get_name()=="mcl_bows:crossbow_2" then
-			stack:set_name("mcl_bows:crossbow")
-			stack:get_meta():set_string("active", "")
-			list[place] = stack
-		elseif stack:get_name()=="mcl_bows:crossbow_0_enchanted" or stack:get_name()=="mcl_bows:crossbow_1_enchanted" or stack:get_name()=="mcl_bows:crossbow_2_enchanted" then
-			stack:set_name("mcl_bows:crossbow_enchanted")
-			stack:get_meta():set_string("active", "")
-			list[place] = stack
+	for _, inv_name in ipairs({"default", "main"}) do
+		local list = inv:get_list(inv_name)
+		if list then
+			for place, stack in pairs(list) do
+				if stack:get_name() == "mcl_bows:crossbow" or stack:get_name() == "mcl_bows:crossbow_enchanted" then
+					stack:get_meta():set_string("active", "")
+				elseif stack:get_name()=="mcl_bows:crossbow_0" or stack:get_name()=="mcl_bows:crossbow_1" or stack:get_name()=="mcl_bows:crossbow_2" then
+					stack:set_name("mcl_bows:crossbow")
+					stack:get_meta():set_string("active", "")
+					list[place] = stack
+				elseif stack:get_name()=="mcl_bows:crossbow_0_enchanted" or stack:get_name()=="mcl_bows:crossbow_1_enchanted" or stack:get_name()=="mcl_bows:crossbow_2_enchanted" then
+					stack:set_name("mcl_bows:crossbow_enchanted")
+					stack:get_meta():set_string("active", "")
+					list[place] = stack
+				end
+			end
+			inv:set_list(inv_name, list)
+			break
 		end
 	end
-	inv:set_list("default", list)
 end
 
 -- Resets the bow charging state and player speed. To be used when the player is no longer charging the bow
