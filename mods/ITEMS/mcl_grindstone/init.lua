@@ -11,9 +11,9 @@ local function get_grindstone_formspec()
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
 	"label[1,0.1;"..minetest.formspec_escape(minetest.colorize("#313131", S("Repair & Disenchant"))).."]"..
 	"list[context;default;0,0;8,4;]"..
-	"list[current_player;default;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;default;0,7.74;9,1;]"..
+	"list[current_player;main;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"list[context;input;1,1;1,1;]"..
 	mcl_formspec.get_itemslot_bg(1,1,1,1)..
@@ -24,7 +24,11 @@ local function get_grindstone_formspec()
 	"listring[context;output]"..
 	"listring[current_player;default]"..
 	"listring[context;input]"..
-	"listring[current_player;default]"
+	"listring[current_player;default]"..
+	"listring[context;output]"..
+	"listring[current_player;main]"..
+	"listring[context;input]"..
+	"listring[current_player;main]"
 end
 
 -- Creates a new item with the wear of the items and custom name

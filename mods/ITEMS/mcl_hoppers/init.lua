@@ -17,12 +17,14 @@ local mcl_hoppers_formspec = table.concat({
 	"list[context;default;2,0.5;5,1;]",
 	mcl_formspec.get_itemslot_bg(2, 0.5, 5, 1),
 	"label[0,2;" .. F(C("#313131", S("Inventory"))) .. "]",
-	"list[current_player;default;0,2.5;9,3;9]",
+	"list[current_player;default;0,2.5;9,3;]",
 	mcl_formspec.get_itemslot_bg(0, 2.5, 9, 3),
-	"list[current_player;default;0,5.74;9,1;]",
+	"list[current_player;main;0,5.74;9,1;]",
 	mcl_formspec.get_itemslot_bg(0, 5.74, 9, 1),
 	"listring[context;default]",
 	"listring[current_player;default]",
+	"listring[context;default]",
+	"listring[current_player;main]",
 })
 
 -- Downwards hopper (base definition)

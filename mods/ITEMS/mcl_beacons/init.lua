@@ -136,9 +136,9 @@ local formspec_string=
 	mcl_formspec.get_itemslot_bg(7.2,7,1,1)..
 	"list[context;input;7.2,7;1,1;]"..
 	mcl_formspec.get_itemslot_bg(1,9,9,3)..
-	"list[current_player;default;1,9;9,3;9]"..
+	"list[current_player;default;1,9;9,3;]"..
 	mcl_formspec.get_itemslot_bg(1,12.5,9,1)..
-	"list[current_player;default;1,12.5;9,1;]"
+	"list[current_player;main;1,12.5;9,1;]"
 
 local function remove_beacon_beam(pos)
 	for y=pos.y, pos.y+301 do

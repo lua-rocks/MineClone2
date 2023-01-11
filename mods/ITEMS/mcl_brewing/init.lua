@@ -6,9 +6,9 @@ local function active_brewing_formspec(fuel_percent, brew_percent)
 	"background[-0.19,-0.25;9.5,9.5;mcl_brewing_inventory.png]"..
 	"label[4,0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Brewing Stand"))).."]"..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;default;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;default;0,7.75;9,1;]"..
+	"list[current_player;main;0,7.75;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.75,9,1)..
 	"list[context;fuel;0.5,1.75;1,1;]"..
 	mcl_formspec.get_itemslot_bg(0.5,1.75,1,1).."image[0.5,1.75;1,1;mcl_brewing_fuel_bg.png]"..
@@ -30,6 +30,10 @@ local function active_brewing_formspec(fuel_percent, brew_percent)
 	"listring[current_player;default]"..
 	"listring[context;fuel]"..
 	"listring[context;input]"..
+	"listring[context;stand]"..
+	"listring[current_player;main]"..
+	"listring[context;fuel]"..
+	"listring[context;input]"..
 	"listring[context;stand]"
 end
 
@@ -37,9 +41,9 @@ local brewing_formspec = "size[9,8.75]"..
 	"background[-0.19,-0.25;9.5,9.5;mcl_brewing_inventory.png]"..
 	"label[4,0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Brewing Stand"))).."]"..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;default;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;default;0,7.75;9,1;]"..
+	"list[current_player;main;0,7.75;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.75,9,1)..
 	"list[context;fuel;0.5,1.75;1,1;]"..
 	mcl_formspec.get_itemslot_bg(0.5,1.75,1,1).."image[0.5,1.75;1,1;mcl_brewing_fuel_bg.png]"..
@@ -56,6 +60,10 @@ local brewing_formspec = "size[9,8.75]"..
 	"image[2.76,1.4;1,2.15;mcl_brewing_bubbles.png]"..
 
 	"listring[current_player;default]"..
+	"listring[context;fuel]"..
+	"listring[context;input]"..
+	"listring[context;stand]"..
+	"listring[current_player;main]"..
 	"listring[context;fuel]"..
 	"listring[context;input]"..
 	"listring[context;stand]"

@@ -52,12 +52,14 @@ local function barrel_open(pos, node, clicker)
 			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,0.5;9,3;]",
 			mcl_formspec.get_itemslot_bg(0, 0.5, 9, 3),
 			"label[0,4.0;"..F(C("#313131", S("Inventory"))).."]",
-			"list[current_player;default;0,4.5;9,3;9]",
+			"list[current_player;default;0,4.5;9,3;]",
 			mcl_formspec.get_itemslot_bg(0, 4.5, 9, 3),
-			"list[current_player;default;0,7.74;9,1;]",
+			"list[current_player;main;0,7.74;9,1;]",
 			mcl_formspec.get_itemslot_bg(0, 7.74, 9, 1),
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]",
 			"listring[current_player;default]",
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]",
+			"listring[current_player;main]",
 		})
 	)
 
