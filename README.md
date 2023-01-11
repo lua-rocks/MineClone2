@@ -13,6 +13,11 @@ crafting panel).
 
 ![chest example](https://i.imgur.com/xaCkouQ.gif)
 
+In creative you can shift-click to hotbar, from hotbar to your inventory and
+from inventory to trash.
+
+![creative example](https://i.imgur.com/tXkL6v3.gif)
+
 ### Clean hotbar
 
 All garbage you pick up from the ground is moved to your inventory, not to the

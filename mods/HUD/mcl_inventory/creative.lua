@@ -324,6 +324,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 	local name = "nix"
 	local main_list
 	local listrings = "listring[detached:creative_"..playername..";default]"..
+		"listring[current_player;main]"..
 		"listring[current_player;default]"..
 		"listring[detached:trash;default]"
 
@@ -362,7 +363,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		local stack_size = get_stack_size(player)
 
 		-- Survival inventory slots
-		main_list = "list[current_player;default;0,3.75;9,3;9]" ..
+		main_list = "list[current_player;default;0,3.75;9,3;]" ..
 			mcl_formspec.get_itemslot_bg(0, 3.75, 9, 3) ..
 			
 			-- Armor
@@ -408,7 +409,8 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 
 		-- For shortcuts
 		listrings = listrings ..
-			"listring[detached:"..playername.."_armor;armor]"..
+			-- "listring[detached:"..playername.."_armor;armor]"..
+			"listring[current_player;main]"..
 			"listring[current_player;default]"
 	else
 		-- Creative inventory slots
@@ -470,7 +472,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		tab(name, "nix") ..
 		"tooltip[nix;"..F(filtername["nix"]).."]"..
 		caption..
-		"list[current_player;default;0,7;9,1;]"..
+		"list[current_player;main;0,7;9,1;]"..
 		mcl_formspec.get_itemslot_bg(0,7,9,1)..
 		main_list..
 		tab(name, "food") ..
@@ -648,8 +650,8 @@ if minetest.is_creative_enabled("") then
 		local inv = digger:get_inventory()
 		if inv then
 			for _,item in ipairs(drops) do
-				if not inv:contains_item("default", item, true) then
-					inv:add_item("default", item)
+				if not inv:contains_item("main", item, true) then
+					inv:add_item("main", item)
 				end
 			end
 		end
@@ -704,9 +706,9 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_player_inventory_action(function(player, action, inventory, inventory_info)
-	if minetest.is_creative_enabled(player:get_player_name()) and get_stack_size(player) == 64 and action == "put" and inventory_info.listname == "default" then
+	if minetest.is_creative_enabled(player:get_player_name()) and get_stack_size(player) == 64 and action == "put" and inventory_info.listname == "main" then
 		local stack = inventory_info.stack
 		stack:set_count(stack:get_stack_max())
-		player:get_inventory():set_stack("default", inventory_info.index, stack)
+		player:get_inventory():set_stack("main", inventory_info.index, stack)
 	end
 end)
