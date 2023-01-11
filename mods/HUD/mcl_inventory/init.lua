@@ -12,6 +12,8 @@ function return_item(itemstack, dropper, pos, inv)
 		-- Return to main inventory
 		if inv:room_for_item("default", itemstack) then
 			inv:add_item("default", itemstack)
+		elseif inv:room_for_item("main", itemstack) then
+			inv:add_item("main", itemstack)
 		else
 			-- Drop item on the ground
 			local v = dropper:get_look_dir()
@@ -91,8 +93,8 @@ local function set_inventory(player, armor_change_only)
 
 		-- Craft and inventory
 		"label[0,4;"..F(minetest.colorize("#313131", S("Inventory"))) .. "]" ..
-		"list[current_player;default;0,4.5;9,3;9]" ..
-		"list[current_player;default;0,7.74;9,1;]" ..
+		"list[current_player;default;0,4.5;9,3;]" ..
+		"list[current_player;main;0,7.74;9,1;]" ..
 		"label[4,0.5;"..F(minetest.colorize("#313131", S("Crafting"))) .. "]" ..
 		"list[current_player;craft;4,1;2,2]" ..
 		"list[current_player;craftpreview;7,1.5;1,1;]" ..
@@ -123,6 +125,8 @@ local function set_inventory(player, armor_change_only)
 
 		-- For shortcuts
 		"listring[current_player;default]" ..
+		"listring[current_player;main]" ..
+		"listring[current_player;default]" ..
 		"listring[current_player;armor]" ..
 		"listring[current_player;default]" ..
 		"listring[current_player;craft]" ..
@@ -137,7 +141,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return_fields(player,"craft")
 		return_fields(player,"enchanting_lapis")
 		return_fields(player,"enchanting_item")
-		if not minetest.is_creative_enabled(player:get_player_name()) and (formname == "" or formname == "default") then
+		if not minetest.is_creative_enabled(player:get_player_name()) and (formname == "" or formname == "default" or formname == "main") then
 			set_inventory(player)
 		end
 	end
@@ -159,8 +163,10 @@ end)
 minetest.register_on_joinplayer(function(player)
 	--init inventory
 	local inv = player:get_inventory()
+	inv:set_width("main", 9)
+	inv:set_size("main", 9)
 	inv:set_width("default", 9)
-	inv:set_size("default", 36)
+	inv:set_size("default", 27)
 	inv:set_size("offhand", 1)
 
 	--set hotbar size
