@@ -500,12 +500,14 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,0.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 			"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;default;0,4.5;9,3;9]"..
+			"list[current_player;default;0,4.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-			"list[current_player;default;0,7.74;9,1;]"..
+			"list[current_player;main;0,7.74;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
-			"listring[current_player;default]")
+			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
+			"listring[current_player;main]")
 
 			if on_rightclick_addendum then
 				on_rightclick_addendum(pos, node, clicker)
@@ -653,17 +655,23 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"list[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default;0,3.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,3.5,9,3)..
 			"label[0,7;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;default;0,7.5;9,3;9]"..
+			"list[current_player;default;0,7.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,7.5,9,3)..
-			"list[current_player;default;0,10.75;9,1;]"..
+			"list[current_player;main;0,10.75;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,10.75,9,1)..
 			-- BEGIN OF LISTRING WORKAROUND
 			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
+			"listring[current_player;main]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
 			-- END OF LISTRING WORKAROUND
 			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
+			"listring[current_player;main]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
 			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]"..
+			"listring[current_player;main]"..
 			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]")
 
 			if on_rightclick_addendum_left then
@@ -801,16 +809,22 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,3.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,3.5,9,3)..
 			"label[0,7;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;default;0,7.5;9,3;9]"..
+			"list[current_player;default;0,7.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,7.5,9,3)..
 			"list[current_player;default;0,10.75;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,10.75,9,1)..
 			-- BEGIN OF LISTRING WORKAROUND
 			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
+			"listring[current_player;main]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
 			-- END OF LISTRING WORKAROUND
 			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]"..
+			"listring[current_player;main]"..
+			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]"..
+			"listring[current_player;main]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
 			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]")
 
@@ -994,12 +1008,14 @@ local formspec_ender_chest = "size[9,8.75]"..
 	"list[current_player;enderchest;0,0.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;default;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
 	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"listring[current_player;enderchest]"..
-	"listring[current_player;default]"
+	"listring[current_player;default]"..
+	"listring[current_player;enderchest]"..
+	"listring[current_player;main]"
 
 
 minetest.register_node("mcl_chests:ender_chest_small", {
@@ -1126,12 +1142,14 @@ local function formspec_shulker_box(name)
 	"list[context;default;0,0.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;default;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
 	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"listring[context;default]"..
-	"listring[current_player;default]"
+	"listring[current_player;default]"..
+	"listring[context;default]"..
+	"listring[current_player;main]"
 end
 
 local function set_shulkerbox_meta(nmeta, imeta)
