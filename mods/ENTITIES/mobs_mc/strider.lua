@@ -153,7 +153,7 @@ local strider = {
 			}
 			if not minetest.is_creative_enabled(clicker:get_player_name()) then
 				wielditem:take_item(1)
-				clicker:get_inventory():set_stack("main", clicker:get_wield_index(), wielditem)
+				clicker:get_inventory():set_stack("default", clicker:get_wield_index(), wielditem)
 			end
 			minetest.sound_play({name = "mcl_armor_equip_leather"}, {gain=0.5, max_hear_distance=8, pos=self.object:get_pos()}, true)
 			return
@@ -185,7 +185,7 @@ local strider = {
 				else
 					wielditem:add_wear(2521)
 				end
-				inv:set_stack("main",self.driver:get_wield_index(), wielditem)
+				inv:set_stack("default",self.driver:get_wield_index(), wielditem)
 			end
 			return
 		end

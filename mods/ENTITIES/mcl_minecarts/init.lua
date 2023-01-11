@@ -143,8 +143,8 @@ local function register_entity(entity_id, mesh, textures, drop, on_rightclick, o
 			elseif puncher and puncher:is_player() then
 				local inv = puncher:get_inventory()
 				for d=1, #drop do
-					if not inv:contains_item("main", drop[d]) then
-						inv:add_item("main", drop[d])
+					if not inv:contains_item("default", drop[d]) then
+						inv:add_item("default", drop[d])
 					end
 				end
 			end
@@ -718,7 +718,7 @@ register_minecart(
 				held:take_item()
 				local index = clicker:get_wield_index()
 				local inv = clicker:get_inventory()
-				inv:set_stack("main", index, held)
+				inv:set_stack("default", index, held)
 			end
 			self.object:set_properties({textures =
 			{
@@ -809,7 +809,7 @@ register_minecart(
 				held:add_wear(65535/65) -- 65 uses
 				local index = clicker:get_wield_index()
 				local inv = clicker:get_inventory()
-				inv:set_stack("main", index, held)
+				inv:set_stack("default", index, held)
 			end
 			activate_tnt_minecart(self)
 		end

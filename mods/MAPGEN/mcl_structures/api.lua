@@ -94,7 +94,7 @@ function mcl_structures.fill_chests(p1,p2,loot,pr)
 			mcl_structures.init_node_construct(p)
 			local meta = minetest.get_meta(p)
 			local inv = meta:get_inventory()
-			mcl_loot.fill_inventory(inv, "main", lootitems, pr)
+			mcl_loot.fill_inventory(inv, "default", lootitems, pr)
 		end
 	end
 end

@@ -140,9 +140,9 @@ mcl_mobs.register_mob("mobs_mc:pig", {
 			}
 			if not minetest.is_creative_enabled(clicker:get_player_name()) then
 				local inv = clicker:get_inventory()
-				local stack = inv:get_stack("main", clicker:get_wield_index())
+				local stack = inv:get_stack("default", clicker:get_wield_index())
 				stack:take_item()
-				inv:set_stack("main", clicker:get_wield_index(), stack)
+				inv:set_stack("default", clicker:get_wield_index(), stack)
 			end
 			minetest.sound_play({name = "mcl_armor_equip_leather"}, {gain=0.5, max_hear_distance=8, pos=self.object:get_pos()}, true)
 			return
@@ -174,7 +174,7 @@ mcl_mobs.register_mob("mobs_mc:pig", {
 				else
 					wielditem:add_wear(2521)
 				end
-				inv:set_stack("main",self.driver:get_wield_index(), wielditem)
+				inv:set_stack("default",self.driver:get_wield_index(), wielditem)
 			end
 			return
 

@@ -6,7 +6,7 @@ local C = minetest.colorize
 
 local open_barrels = {}
 
-local drop_content = mcl_util.drop_items_from_meta_container("main")
+local drop_content = mcl_util.drop_items_from_meta_container("default")
 
 local function on_blast(pos)
 	local node = minetest.get_node(pos)
@@ -49,15 +49,15 @@ local function barrel_open(pos, node, clicker)
 		table.concat({
 			"size[9,8.75]",
 			"label[0,0;"..F(C("#313131", name)).."]",
-			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main;0,0.5;9,3;]",
+			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,0.5;9,3;]",
 			mcl_formspec.get_itemslot_bg(0, 0.5, 9, 3),
 			"label[0,4.0;"..F(C("#313131", S("Inventory"))).."]",
-			"list[current_player;main;0,4.5;9,3;9]",
+			"list[current_player;default;0,4.5;9,3;9]",
 			mcl_formspec.get_itemslot_bg(0, 4.5, 9, 3),
-			"list[current_player;main;0,7.74;9,1;]",
+			"list[current_player;default;0,7.74;9,1;]",
 			mcl_formspec.get_itemslot_bg(0, 7.74, 9, 1),
-			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main]",
-			"listring[current_player;main]",
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]",
+			"listring[current_player;default]",
 		})
 	)
 
@@ -113,7 +113,7 @@ minetest.register_node("mcl_barrels:barrel_closed", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-		inv:set_size("main", 9*3)
+		inv:set_size("default", 9*3)
 	end,
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
 		minetest.get_meta(pos):set_string("name", itemstack:get_meta():get_string("name"))

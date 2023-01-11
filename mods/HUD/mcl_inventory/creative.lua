@@ -143,20 +143,20 @@ local function set_inv_search(filter, player)
 	table.sort(creative_list)
 	replace_enchanted_books(creative_list)
 
-	inv:set_size("main", #creative_list)
-	inv:set_list("main", creative_list)
+	inv:set_size("default", #creative_list)
+	inv:set_list("default", creative_list)
 end
 
 local function set_inv_page(page, player)
 	local playername = player:get_player_name()
 	local inv = minetest.get_inventory({type="detached", name="creative_"..playername})
-	inv:set_size("main", 0)
+	inv:set_size("default", 0)
 	local creative_list = {}
 	if inventory_lists[page] then -- Standard filter
 		creative_list = inventory_lists[page]
 	end
-	inv:set_size("main", #creative_list)
-	inv:set_list("main", creative_list)
+	inv:set_size("default", #creative_list)
+	inv:set_list("default", creative_list)
 end
 
 local function init(player)
@@ -196,7 +196,7 @@ local trash = minetest.create_detached_inventory("trash", {
 		inv:set_stack(listname, index, "")
 	end,
 })
-trash:set_size("main", 1)
+trash:set_size("default", 1)
 
 local noffset = {} -- numeric tab offset
 local offset = {} -- string offset:
@@ -313,7 +313,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 	if not inv_size then
 		if page == "nix" then
 			local inv = minetest.get_inventory({type="detached", name="creative_"..playername})
-			inv_size = inv:get_size("main")
+			inv_size = inv:get_size("default")
 		elseif page and page ~= "inv" then
 			inv_size = #(inventory_lists[page])
 		else
@@ -323,9 +323,9 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 	local pagemax = math.max(1, math.floor((inv_size-1) / (9*5) + 1))
 	local name = "nix"
 	local main_list
-	local listrings = "listring[detached:creative_"..playername..";main]"..
-		"listring[current_player;main]"..
-		"listring[detached:trash;main]"
+	local listrings = "listring[detached:creative_"..playername..";default]"..
+		"listring[current_player;default]"..
+		"listring[detached:trash;default]"
 
 	if page then
 		name = page
@@ -362,7 +362,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		local stack_size = get_stack_size(player)
 
 		-- Survival inventory slots
-		main_list = "list[current_player;main;0,3.75;9,3;9]" ..
+		main_list = "list[current_player;default;0,3.75;9,3;9]" ..
 			mcl_formspec.get_itemslot_bg(0, 3.75, 9, 3) ..
 			
 			-- Armor
@@ -409,10 +409,10 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		-- For shortcuts
 		listrings = listrings ..
 			"listring[detached:"..playername.."_armor;armor]"..
-			"listring[current_player;main]"
+			"listring[current_player;default]"
 	else
 		-- Creative inventory slots
-		main_list = "list[detached:creative_"..playername..";main;0,1.75;9,5;"..tostring(start_i).."]"..
+		main_list = "list[detached:creative_"..playername..";default;0,1.75;9,5;"..tostring(start_i).."]"..
 			mcl_formspec.get_itemslot_bg(0,1.75,9,5)..
 		-- Page buttons
 			"label[9.0,5.5;"..F(S("@1/@2", pagenum, pagemax)).."]"..
@@ -470,7 +470,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		tab(name, "nix") ..
 		"tooltip[nix;"..F(filtername["nix"]).."]"..
 		caption..
-		"list[current_player;main;0,7;9,1;]"..
+		"list[current_player;default;0,7;9,1;]"..
 		mcl_formspec.get_itemslot_bg(0,7,9,1)..
 		main_list..
 		tab(name, "food") ..
@@ -487,7 +487,7 @@ function mcl_inventory.set_creative_formspec(player, start_i, pagenum, inv_size,
 		"tooltip[matr;"..F(filtername["matr"]).."]"..
 		tab(name, "inv") ..
 		"tooltip[inv;"..F(filtername["inv"]).."]"..
-		"list[detached:trash;main;9,7;1,1;]"..
+		"list[detached:trash;default;9,7;1,1;]"..
 		mcl_formspec.get_itemslot_bg(9,7,1,1)..
 		"image[9,7;1,1;crafting_creative_trash.png]"..
 		listrings
@@ -607,7 +607,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local inv_size
 	if page == "nix" then
 		local inv = minetest.get_inventory({type="detached", name="creative_"..name})
-		inv_size = inv:get_size("main")
+		inv_size = inv:get_size("default")
 	elseif page and page ~= "inv" then
 		inv_size = #(inventory_lists[page])
 	else
@@ -648,8 +648,8 @@ if minetest.is_creative_enabled("") then
 		local inv = digger:get_inventory()
 		if inv then
 			for _,item in ipairs(drops) do
-				if not inv:contains_item("main", item, true) then
-					inv:add_item("main", item)
+				if not inv:contains_item("default", item, true) then
+					inv:add_item("default", item)
 				end
 			end
 		end
@@ -673,7 +673,7 @@ if minetest.is_creative_enabled("") then
 		local inv_size
 		if page == "nix" then
 			local inv = minetest.get_inventory({type="detached", name="creative_"..name})
-			inv_size = inv:get_size("main")
+			inv_size = inv:get_size("default")
 		elseif page and page ~= "inv" then
 			inv_size = #(inventory_lists[page])
 		else
@@ -704,9 +704,9 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_player_inventory_action(function(player, action, inventory, inventory_info)
-	if minetest.is_creative_enabled(player:get_player_name()) and get_stack_size(player) == 64 and action == "put" and inventory_info.listname == "main" then
+	if minetest.is_creative_enabled(player:get_player_name()) and get_stack_size(player) == 64 and action == "put" and inventory_info.listname == "default" then
 		local stack = inventory_info.stack
 		stack:set_count(stack:get_stack_max())
-		player:get_inventory():set_stack("main", inventory_info.index, stack)
+		player:get_inventory():set_stack("default", inventory_info.index, stack)
 	end
 end)

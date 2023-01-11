@@ -15,19 +15,19 @@ local function setup_dropper(pos)
 	-- Set formspec and inventory
 	local form = "size[9,8.75]"..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"label[3,0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Dropper"))).."]"..
-	"list[context;main;3,0.5;3,3;]"..
+	"list[context;default;3,0.5;3,3;]"..
 	mcl_formspec.get_itemslot_bg(3,0.5,3,3)..
-	"listring[context;main]"..
-	"listring[current_player;main]"
+	"listring[context;default]"..
+	"listring[current_player;default]"
 	local meta = minetest.get_meta(pos)
 	meta:set_string("formspec", form)
 	local inv = meta:get_inventory()
-	inv:set_size("main", 9)
+	inv:set_size("default", 9)
 end
 
 local function orientate_dropper(pos, placer)
@@ -58,8 +58,8 @@ local dropperdef = {
 		local meta2 = meta:to_table()
 		meta:from_table(oldmetadata)
 		local inv = meta:get_inventory()
-		for i=1, inv:get_size("main") do
-			local stack = inv:get_stack("main", i)
+		for i=1, inv:get_size("default") do
+			local stack = inv:get_stack("default", i)
 			if not stack:is_empty() then
 				local p = {x=pos.x+math.random(0, 10)/10-0.5, y=pos.y, z=pos.z+math.random(0, 10)/10-0.5}
 				minetest.add_item(p, stack)
@@ -116,8 +116,8 @@ local dropperdef = {
 				return
 			end
 			local stacks = {}
-			for i=1,inv:get_size("main") do
-				local stack = inv:get_stack("main", i)
+			for i=1,inv:get_size("default") do
+				local stack = inv:get_stack("default", i)
 				if not stack:is_empty() then
 					table.insert(stacks, {stack = stack, stackpos = i})
 				end
@@ -145,7 +145,7 @@ local dropperdef = {
 					local speed = 3
 					item_entity:set_velocity(vector.multiply(drop_vel,speed))
 					stack:take_item()
-					inv:set_stack("main", stack_id, stack)
+					inv:set_stack("default", stack_id, stack)
 				end
 			end
 		end,

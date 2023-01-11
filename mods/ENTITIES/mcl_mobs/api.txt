@@ -776,8 +776,8 @@ mobs:register_mob("mob_horse:horse", {
 				mobs.detach(clicker, {x = 1, y = 0, z = 1})
 
 				-- add saddle back to inventory
-				if inv:room_for_item("main", "mobs:saddle") then
-					inv:add_item("main", "mobs:saddle")
+				if inv:room_for_item("default", "mobs:saddle") then
+					inv:add_item("default", "mobs:saddle")
 				else
 					minetest.add_item(clicker.get_pos(), "mobs:saddle")
 				end
@@ -790,7 +790,7 @@ mobs:register_mob("mob_horse:horse", {
 				mobs.attach(self, clicker)
 
 				-- take saddle from inventory
-				inv:remove_item("main", "mobs:saddle")
+				inv:remove_item("default", "mobs:saddle")
 			end
 		end
 

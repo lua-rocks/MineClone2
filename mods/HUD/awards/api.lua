@@ -228,7 +228,7 @@ function awards.unlock(name, award)
 			if not itemstack:is_empty() then
 				local receiverref = minetest.get_player_by_name(name)
 				if receiverref then
-					receiverref:get_inventory():add_item("main", itemstack)
+					receiverref:get_inventory():add_item("default", itemstack)
 				end
 			end
 		end

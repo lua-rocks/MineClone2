@@ -73,7 +73,7 @@ function mcl_bows_s.shoot_arrow_crossbow(arrow_item, pos, dir, yaw, shooter, pow
 		if obj:get_luaentity().player == "" then
 			obj:get_luaentity().player = shooter
 		end
-		obj:get_luaentity().node = shooter:get_inventory():get_stack("main", 1):get_name()
+		obj:get_luaentity().node = shooter:get_inventory():get_stack("default", 1):get_name()
 	end
 	return obj
 end
@@ -81,8 +81,8 @@ end
 local function get_arrow(player)
 	local inv = player:get_inventory()
 	local arrow_stack, arrow_stack_id
-	for i=1, inv:get_size("main") do
-		local it = inv:get_stack("main", i)
+	for i=1, inv:get_size("default") do
+		local it = inv:get_stack("default", i)
 		if not it:is_empty() and minetest.get_item_group(it:get_name(), "ammo_crossbow") ~= 0 then
 			arrow_stack = it
 			arrow_stack_id = i
@@ -188,7 +188,7 @@ S("The speed and damage of the arrow increases the longer you charge. The regula
 -- Iterates through player inventory and resets all the bows in "charging" state back to their original stage
 local function reset_bows(player)
 	local inv = player:get_inventory()
-	local list = inv:get_list("main")
+	local list = inv:get_list("default")
 	for place, stack in pairs(list) do
 		if stack:get_name() == "mcl_bows:crossbow" or stack:get_name() == "mcl_bows:crossbow_enchanted" then
 			stack:get_meta():set_string("active", "")
@@ -202,7 +202,7 @@ local function reset_bows(player)
 			list[place] = stack
 		end
 	end
-	inv:set_list("main", list)
+	inv:set_list("default", list)
 end
 
 -- Resets the bow charging state and player speed. To be used when the player is no longer charging the bow
@@ -267,7 +267,7 @@ controls.register_on_release(function(player, key, time)
 		else
 			arrow_itemstring = arrow_stack:get_name()
 			arrow_stack:take_item()
-			player:get_inventory():set_stack("main", arrow_stack_id, arrow_stack)
+			player:get_inventory():set_stack("default", arrow_stack_id, arrow_stack)
 		end
 
 		wielditem:get_meta():set_string("arrow", arrow_itemstring)

@@ -378,7 +378,7 @@ local function ecb_spawn_dungeon(blockpos, action, calls_remaining, param)
 		set_node(pos, {name="mcl_chests:chest", param2=facedir})
 		local meta = get_meta(pos)
 		minetest.log("action", "[mcl_dungeons] Filling chest " .. tostring(c) .. " at " .. minetest.pos_to_string(pos))
-		mcl_loot.fill_inventory(meta:get_inventory(), "main", mcl_loot.get_multi_loot(loottable, pr), pr)
+		mcl_loot.fill_inventory(meta:get_inventory(), "default", mcl_loot.get_multi_loot(loottable, pr), pr)
 	end
 
 	-- Mob spawners are placed seperately, too

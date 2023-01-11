@@ -126,7 +126,7 @@ minetest.register_node("mcl_jukebox:jukebox", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-		inv:set_size("main", 1)
+		inv:set_size("default", 1)
 	end,
 	on_rightclick= function(pos, node, clicker, itemstack, pointed_thing)
 		if not clicker then return end
@@ -137,7 +137,7 @@ minetest.register_node("mcl_jukebox:jukebox", {
 		end
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-		if not inv:is_empty("main") then
+		if not inv:is_empty("default") then
 			-- Jukebox contains a disc: Stop music and remove disc
 			if active_tracks[cname] then
 				minetest.sound_stop(active_tracks[cname])
@@ -145,11 +145,11 @@ minetest.register_node("mcl_jukebox:jukebox", {
 			local lx = pos.x
 			local ly = pos.y+1
 			local lz = pos.z
-			local record = inv:get_stack("main", 1)
+			local record = inv:get_stack("default", 1)
 			local dropped_item = minetest.add_item({x=lx, y=ly, z=lz}, record)
 			-- Rotate record to match with “slot” texture
 			dropped_item:set_yaw(math.pi/2)
-			inv:set_stack("main", 1, "")
+			inv:set_stack("default", 1, "")
 			if active_tracks[cname] then
 				minetest.sound_stop(active_tracks[cname])
 				active_tracks[cname] = nil
@@ -164,7 +164,7 @@ minetest.register_node("mcl_jukebox:jukebox", {
 			if playing then
 				local put_itemstack = ItemStack(itemstack)
 				put_itemstack:set_count(1)
-				inv:set_stack("main", 1, put_itemstack)
+				inv:set_stack("default", 1, put_itemstack)
 				itemstack:take_item()
 			end
 		end
@@ -203,7 +203,7 @@ minetest.register_node("mcl_jukebox:jukebox", {
 		local meta2 = meta
 		meta:from_table(oldmetadata)
 		local inv = meta:get_inventory()
-		local stack = inv:get_stack("main", 1)
+		local stack = inv:get_stack("default", 1)
 		if not stack:is_empty() then
 			local p = {x=pos.x+math.random(0, 10)/10-0.5, y=pos.y, z=pos.z+math.random(0, 10)/10-0.5}
 			local dropped_item = minetest.add_item(p, stack)

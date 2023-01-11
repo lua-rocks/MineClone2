@@ -75,8 +75,8 @@ local function give_bucket(new_bucket, itemstack, user)
 		if itemstack:get_count() == 1 then
 			return new_bucket
 		else
-			if inv:room_for_item("main", new_bucket) then
-				inv:add_item("main", new_bucket)
+			if inv:room_for_item("default", new_bucket) then
+				inv:add_item("default", new_bucket)
 			else
 				add_item(user:get_pos(), new_bucket)
 			end
@@ -122,8 +122,8 @@ local function get_bucket_drop(itemstack, user, take_bucket)
 			return new_bucket
 		else
 			local inv = user:get_inventory()
-			if inv:room_for_item("main", new_bucket) then
-				inv:add_item("main", new_bucket)
+			if inv:room_for_item("default", new_bucket) then
+				inv:add_item("default", new_bucket)
 			else
 				add_item(user:get_pos(), new_bucket)
 			end

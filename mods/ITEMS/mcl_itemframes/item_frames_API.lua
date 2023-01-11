@@ -166,7 +166,7 @@ local remove_item_entity = function(pos, node)
 				if entity.name == "mcl_itemframes:item" or entity.name == "mcl_itemframes:glow_item" or entity.name == "mcl_itemframes:map" or entity.name == "mcl_itemframes:glow_map" then
 					local meta = minetest.get_meta(pos)
 					local inv = meta:get_inventory()
-					local item = inv:get_stack("main", 1)
+					local item = inv:get_stack("default", 1)
 					if not item:is_empty() then
 						if (node.name == found_name_to_use) then
 							minetest.add_item(pos, item)
@@ -195,7 +195,7 @@ mcl_itemframes.update_item_entity = function(pos, node, param2)
 	remove_item_entity(pos, node)
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
-	local item = inv:get_stack("main", 1)
+	local item = inv:get_stack("default", 1)
 
 	local name_found = false
 	local found_name_to_use = ""
@@ -367,7 +367,7 @@ function mcl_itemframes.drop_generic_item(pos, node, meta, clicker)
 	if not minetest.is_creative_enabled(cname) then
 		if (node.name == found_name_to_use) then
 			local inv = meta:get_inventory()
-			local item = inv:get_stack("main", 1)
+			local item = inv:get_stack("default", 1)
 			if not item:is_empty() then
 				minetest.add_item(pos, item)
 			end
@@ -644,14 +644,14 @@ function mcl_itemframes.create_base_definitions()
 
 		on_timer = function(pos)
 			local inv = minetest.get_meta(pos):get_inventory()
-			local stack = inv:get_stack("main", 1)
+			local stack = inv:get_stack("default", 1)
 			local itemname = stack:get_name()
 			local node = {}
 			if minetest.get_item_group(itemname, "clock") > 0 then
 				local new_name = "mcl_clock:clock_" .. (mcl_worlds.clock_works(pos) and mcl_clock.old_time or mcl_clock.random_frame)
 				if itemname ~= new_name then
 					stack:set_name(new_name)
-					inv:set_stack("main", 1, stack)
+					inv:set_stack("default", 1, stack)
 					node = minetest.get_node(pos)
 					mcl_itemframes.update_item_entity(pos, node, node.param2)
 				end
@@ -689,7 +689,7 @@ function mcl_itemframes.create_base_definitions()
 		on_construct = function(pos)
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
-			inv:set_size("main", 1)
+			inv:set_size("default", 1)
 		end,
 
 		on_rightclick = function(pos, node, clicker, itemstack)
@@ -708,7 +708,7 @@ function mcl_itemframes.create_base_definitions()
 			if itemstack:is_empty() then
 				remove_item_entity(pos, node)
 				meta:set_string("infotext", "")
-				inv:set_stack("main", 1, "")
+				inv:set_stack("default", 1, "")
 				return itemstack
 			end
 			local put_itemstack = ItemStack(itemstack)
@@ -721,7 +721,7 @@ function mcl_itemframes.create_base_definitions()
 				minetest.get_node_timer(pos):start(1.0)
 			end
 
-			inv:set_stack("main", 1, put_itemstack)
+			inv:set_stack("default", 1, put_itemstack)
 			mcl_itemframes.update_item_entity(pos, node)
 
 			-- Add node infotext when item has been named
@@ -865,9 +865,9 @@ function mcl_itemframes.backwards_compatibility ()
 			if item ~= "" then
 				local itemstack = ItemStack(minetest.deserialize(meta:get_string("itemdata")))
 				local inv = meta:get_inventory()
-				inv:set_size("main", 1)
+				inv:set_size("default", 1)
 				if not itemstack:is_empty() then
-					inv:set_stack("main", 1, itemstack)
+					inv:set_stack("default", 1, itemstack)
 				end
 			end
 			mcl_itemframes.update_item_entity(pos, node)

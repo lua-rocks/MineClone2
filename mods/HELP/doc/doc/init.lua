@@ -956,7 +956,7 @@ function doc.process_form(player,formname,fields)
 			eid = doc.data.players[playername].entry
 			if(tab==1) then
 				contents = doc.formspec_main(playername)
-				subformname = "main"
+				subformname = "default"
 			elseif(tab==2) then
 				contents = doc.formspec_category(cid, playername)
 				subformname = "category"

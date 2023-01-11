@@ -84,16 +84,16 @@ local function load_default_formspec (ent, text)
 	local formspec = "size[9,8.75]"
 			.. "label[0,0;" .. minetest.formspec_escape(
 			minetest.colorize("#313131", ent._inv_title .. " ".. text)) .. "]"
-			.. "list[detached:"..ent._inv_id..";main;"..spacing..",0.5;"..cols..","..rows..";]"
+			.. "list[detached:"..ent._inv_id..";default;"..spacing..",0.5;"..cols..","..rows..";]"
 			.. mcl_formspec.get_itemslot_bg(spacing,0.5,cols,rows)
 			.. "label[0,4.0;" .. minetest.formspec_escape(
 			minetest.colorize("#313131", "Inventory")) .. "]"
-			.. "list[current_player;main;0,4.5;9,3;9]"
+			.. "list[current_player;default;0,4.5;9,3;9]"
 			.. mcl_formspec.get_itemslot_bg(0,4.5,9,3)
-			.. "list[current_player;main;0,7.74;9,1;]"
+			.. "list[current_player;default;0,7.74;9,1;]"
 			.. mcl_formspec.get_itemslot_bg(0,7.74,9,1)
-			.. "listring[detached:"..ent._inv_id..";main]"
-			.. "listring[current_player;main]"
+			.. "listring[detached:"..ent._inv_id..";default]"
+			.. "listring[current_player;default]"
 	return formspec
 end
 

@@ -1324,7 +1324,7 @@ end
 
 local function reveal_items_in_inventory(player)
 	local inv = player:get_inventory()
-	local list = inv:get_list("main")
+	local list = inv:get_list("default")
 	for l=1, #list do
 		reveal_item(player:get_player_name(), list[l]:get_name())
 	end

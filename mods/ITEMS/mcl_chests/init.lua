@@ -326,7 +326,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 		end
 	end
 
-	local drop_items_chest = mcl_util.drop_items_from_meta_container("main")
+	local drop_items_chest = mcl_util.drop_items_from_meta_container("default")
 
 	local function on_chest_blast(pos)
 		local node = minetest.get_node(pos)
@@ -346,8 +346,8 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 
 	local function limit_put(stack, inv1, inv2)
 		local leftover = ItemStack(stack)
-		leftover = limit_put_list(leftover, inv1:get_list("main"))
-		leftover = limit_put_list(leftover, inv2:get_list("main"))
+		leftover = limit_put_list(leftover, inv1:get_list("default"))
+		leftover = limit_put_list(leftover, inv2:get_list("default"))
 		return stack:get_count() - leftover:get_count()
 	end
 
@@ -428,7 +428,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			meta:set_string("workaround", nil) -- Done to keep metadata clean
 			-- END OF WORKAROUND --
 			local inv = meta:get_inventory()
-			inv:set_size("main", 9*3)
+			inv:set_size("default", 9*3)
 			--[[ The "input" list is *another* workaround (hahahaha!) around the fact that Minetest
 			does not support listrings to put items into an alternative list if the first one
 			happens to be full. See <https://github.com/minetest/minetest/issues/5343>.
@@ -472,7 +472,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			-- BEGIN OF LISTRING WORKAROUND
 			if listname == "input" then
 				local inv = minetest.get_inventory({type="node", pos=pos})
-				inv:add_item("main", stack)
+				inv:add_item("default", stack)
 			end
 			-- END OF LISTRING WORKAROUND
 		end,
@@ -497,15 +497,15 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"mcl_chests:"..canonical_basename.."_"..pos.x.."_"..pos.y.."_"..pos.z,
 			"size[9,8.75]"..
 			"label[0,0;"..minetest.formspec_escape(minetest.colorize("#313131", name)).."]"..
-			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main;0,0.5;9,3;]"..
+			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,0.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 			"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;main;0,4.5;9,3;9]"..
+			"list[current_player;default;0,4.5;9,3;9]"..
 			mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-			"list[current_player;main;0,7.74;9,1;]"..
+			"list[current_player;default;0,7.74;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
-			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main]"..
-			"listring[current_player;main]")
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
+			"listring[current_player;default]")
 
 			if on_rightclick_addendum then
 				on_rightclick_addendum(pos, node, clicker)
@@ -585,11 +585,11 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 				local other_pos = mcl_util.get_double_container_neighbor_pos(pos, minetest.get_node(pos).param2, "left")
 				local other_inv = minetest.get_inventory({type="node", pos=other_pos})
 				return limit_put(stack, inv, other_inv)
-				--[[if inv:room_for_item("main", stack) then
+				--[[if inv:room_for_item("default", stack) then
 					return -1
 				else
 
-					if other_inv:room_for_item("main", stack) then
+					if other_inv:room_for_item("default", stack) then
 						return -1
 					else
 						return 0
@@ -615,7 +615,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 
 				inv:set_stack("input", 1, nil)
 
-				double_chest_add_item(inv, other_inv, "main", stack)
+				double_chest_add_item(inv, other_inv, "default", stack)
 			end
 			-- END OF LISTRING WORKAROUND
 		end,
@@ -648,23 +648,23 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 			"mcl_chests:"..canonical_basename.."_"..pos.x.."_"..pos.y.."_"..pos.z,
 			"size[9,11.5]"..
 			"label[0,0;"..minetest.formspec_escape(minetest.colorize("#313131", name)).."]"..
-			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main;0,0.5;9,3;]"..
+			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,0.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
-			"list[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";main;0,3.5;9,3;]"..
+			"list[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default;0,3.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,3.5,9,3)..
 			"label[0,7;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;main;0,7.5;9,3;9]"..
+			"list[current_player;default;0,7.5;9,3;9]"..
 			mcl_formspec.get_itemslot_bg(0,7.5,9,3)..
-			"list[current_player;main;0,10.75;9,1;]"..
+			"list[current_player;default;0,10.75;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,10.75,9,1)..
 			-- BEGIN OF LISTRING WORKAROUND
-			"listring[current_player;main]"..
+			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
 			-- END OF LISTRING WORKAROUND
-			"listring[current_player;main]"..
-			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main]"..
-			"listring[current_player;main]"..
-			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";main]")
+			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]"..
+			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]")
 
 			if on_rightclick_addendum_left then
 				on_rightclick_addendum_left(pos, node, clicker)
@@ -734,10 +734,10 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 				local other_pos = mcl_util.get_double_container_neighbor_pos(pos, minetest.get_node(pos).param2, "right")
 				local other_inv = minetest.get_inventory({type="node", pos=other_pos})
 				local inv = minetest.get_inventory({type="node", pos=pos})
-				--[[if other_inv:room_for_item("main", stack) then
+				--[[if other_inv:room_for_item("default", stack) then
 					return -1
 				else
-					if inv:room_for_item("main", stack) then
+					if inv:room_for_item("default", stack) then
 						return -1
 					else
 						return 0
@@ -764,7 +764,7 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 
 				inv:set_stack("input", 1, nil)
 
-				double_chest_add_item(other_inv, inv, "main", stack)
+				double_chest_add_item(other_inv, inv, "default", stack)
 			end
 			-- END OF LISTRING WORKAROUND
 		end,
@@ -796,23 +796,23 @@ local function register_chest(basename, desc, longdesc, usagehelp, tt_help, tile
 
 			"size[9,11.5]"..
 			"label[0,0;"..minetest.formspec_escape(minetest.colorize("#313131", name)).."]"..
-			"list[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";main;0,0.5;9,3;]"..
+			"list[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default;0,0.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
-			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main;0,3.5;9,3;]"..
+			"list[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default;0,3.5;9,3;]"..
 			mcl_formspec.get_itemslot_bg(0,3.5,9,3)..
 			"label[0,7;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-			"list[current_player;main;0,7.5;9,3;9]"..
+			"list[current_player;default;0,7.5;9,3;9]"..
 			mcl_formspec.get_itemslot_bg(0,7.5,9,3)..
-			"list[current_player;main;0,10.75;9,1;]"..
+			"list[current_player;default;0,10.75;9,1;]"..
 			mcl_formspec.get_itemslot_bg(0,10.75,9,1)..
 			-- BEGIN OF LISTRING WORKAROUND
-			"listring[current_player;main]"..
+			"listring[current_player;default]"..
 			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";input]"..
 			-- END OF LISTRING WORKAROUND
-			"listring[current_player;main]"..
-			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";main]"..
-			"listring[current_player;main]"..
-			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";main]")
+			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos_other.x..","..pos_other.y..","..pos_other.z..";default]"..
+			"listring[current_player;default]"..
+			"listring[nodemeta:"..pos.x..","..pos.y..","..pos.z..";default]")
 
 			if on_rightclick_addendum_right then
 				on_rightclick_addendum_right(pos, node, clicker)
@@ -994,12 +994,12 @@ local formspec_ender_chest = "size[9,8.75]"..
 	"list[current_player;enderchest;0,0.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"listring[current_player;enderchest]"..
-	"listring[current_player;main]"
+	"listring[current_player;default]"
 
 
 minetest.register_node("mcl_chests:ender_chest_small", {
@@ -1123,15 +1123,15 @@ local function formspec_shulker_box(name)
 	end
 	return "size[9,8.75]"..
 	"label[0,0;"..minetest.formspec_escape(minetest.colorize("#313131", name)).."]"..
-	"list[context;main;0,0.5;9,3;]"..
+	"list[context;default;0,0.5;9,3;]"..
 	mcl_formspec.get_itemslot_bg(0,0.5,9,3)..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
-	"listring[context;main]"..
-	"listring[current_player;main]"
+	"listring[context;default]"..
+	"listring[current_player;default]"
 end
 
 local function set_shulkerbox_meta(nmeta, imeta)
@@ -1185,12 +1185,12 @@ for color, desc in pairs(boxtypes) do
 			local imetadata = itemstack:get_metadata()
 			local iinv_main = minetest.deserialize(imetadata)
 			local ninv = nmeta:get_inventory()
-			ninv:set_list("main", iinv_main)
-			ninv:set_size("main", 9*3)
+			ninv:set_list("default", iinv_main)
+			ninv:set_size("default", 9*3)
 			set_shulkerbox_meta(nmeta, itemstack:get_meta())
 
 			if minetest.is_creative_enabled(placer:get_player_name()) then
-				if not ninv:is_empty("main") then
+				if not ninv:is_empty("default") then
 					return nil
 				else
 					return itemstack
@@ -1206,8 +1206,8 @@ for color, desc in pairs(boxtypes) do
 				local ninv = minetest.get_inventory({type="node", pos=droppos})
 				local imetadata = stack:get_metadata()
 				local iinv_main = minetest.deserialize(imetadata)
-				ninv:set_list("main", iinv_main)
-				ninv:set_size("main", 9*3)
+				ninv:set_list("default", iinv_main)
+				ninv:set_size("default", 9*3)
 				set_shulkerbox_meta(minetest.get_meta(droppos), stack:get_meta())
 				stack:take_item()
 			end
@@ -1247,7 +1247,7 @@ for color, desc in pairs(boxtypes) do
 			local meta = minetest.get_meta(pos)
 			meta:set_string("formspec", formspec_shulker_box(nil))
 			local inv = meta:get_inventory()
-			inv:set_size("main", 9*3)
+			inv:set_size("default", 9*3)
 			create_entity(pos, small_name, {mob_texture}, minetest.get_node(pos).param2, false, "mcl_chests_shulker", "mcl_chests_shulker", "shulker")
 		end,
 		after_place_node = function(pos, placer, itemstack, pointed_thing)
@@ -1255,12 +1255,12 @@ for color, desc in pairs(boxtypes) do
 			local imetadata = itemstack:get_metadata()
 			local iinv_main = minetest.deserialize(imetadata)
 			local ninv = nmeta:get_inventory()
-			ninv:set_list("main", iinv_main)
-			ninv:set_size("main", 9*3)
+			ninv:set_list("default", iinv_main)
+			ninv:set_size("default", 9*3)
 			set_shulkerbox_meta(nmeta, itemstack:get_meta())
 
 			if minetest.is_creative_enabled(placer:get_player_name()) then
-				if not ninv:is_empty("main") then
+				if not ninv:is_empty("default") then
 					return nil
 				else
 					return itemstack
@@ -1281,8 +1281,8 @@ for color, desc in pairs(boxtypes) do
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			local items = {}
-			for i=1, inv:get_size("main") do
-				local stack = inv:get_stack("main", i)
+			for i=1, inv:get_size("default") do
+				local stack = inv:get_stack("default", i)
 				items[i] = stack:to_string()
 			end
 			local data = minetest.serialize(items)
@@ -1293,7 +1293,7 @@ for color, desc in pairs(boxtypes) do
 			boxitem:set_metadata(data)
 
 			if minetest.is_creative_enabled("") then
-				if not inv:is_empty("main") then
+				if not inv:is_empty("default") then
 					minetest.add_item(pos, boxitem)
 				end
 			else

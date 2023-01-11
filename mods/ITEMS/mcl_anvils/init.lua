@@ -17,9 +17,9 @@ local function get_anvil_formspec(set_name)
 	return "size[9,8.75]"..
 	"background[-0.19,-0.25;9.41,9.49;mcl_anvils_inventory.png]"..
 	"label[0,4.0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"list[context;input;1,2.5;1,1;]"..
 	mcl_formspec.get_itemslot_bg(1,2.5,1,1)..
@@ -32,9 +32,9 @@ local function get_anvil_formspec(set_name)
 	"field_close_on_enter[name;false]"..
 	"button[7,0.7;2,1;name_button;"..minetest.formspec_escape(S("Set Name")).."]"..
 	"listring[context;output]"..
-	"listring[current_player;main]"..
+	"listring[current_player;default]"..
 	"listring[context;input]"..
-	"listring[current_player;main]"
+	"listring[current_player;default]"
 end
 
 -- Given a tool and material stack, returns how many items of the material stack

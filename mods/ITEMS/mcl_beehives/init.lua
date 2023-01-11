@@ -24,10 +24,10 @@ local honey_harvest = function(pos, node, player, itemstack, pointed_thing)
 
 	if bottle then
 		local honey = "mcl_honey:honey_bottle"
-		if inv:room_for_item("main", honey) then
+		if inv:room_for_item("default", honey) then
 			node.name = beehive
 			minetest.set_node(pos, node)
-			inv:add_item("main", "mcl_honey:honey_bottle")
+			inv:add_item("default", "mcl_honey:honey_bottle")
 			if not is_creative then
 				itemstack:take_item()
 			end

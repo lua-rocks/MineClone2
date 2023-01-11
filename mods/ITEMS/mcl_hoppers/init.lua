@@ -14,15 +14,15 @@ end
 local mcl_hoppers_formspec = table.concat({
 	"size[9,7]",
 	"label[2,0;" .. F(C("#313131", S("Hopper"))) .. "]",
-	"list[context;main;2,0.5;5,1;]",
+	"list[context;default;2,0.5;5,1;]",
 	mcl_formspec.get_itemslot_bg(2, 0.5, 5, 1),
 	"label[0,2;" .. F(C("#313131", S("Inventory"))) .. "]",
-	"list[current_player;main;0,2.5;9,3;9]",
+	"list[current_player;default;0,2.5;9,3;9]",
 	mcl_formspec.get_itemslot_bg(0, 2.5, 9, 3),
-	"list[current_player;main;0,5.74;9,1;]",
+	"list[current_player;default;0,5.74;9,1;]",
 	mcl_formspec.get_itemslot_bg(0, 5.74, 9, 1),
-	"listring[context;main]",
-	"listring[current_player;main]",
+	"listring[context;default]",
+	"listring[current_player;default]",
 })
 
 -- Downwards hopper (base definition)
@@ -74,7 +74,7 @@ local def_hopper = {
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", mcl_hoppers_formspec)
 		local inv = meta:get_inventory()
-		inv:set_size("main", 5)
+		inv:set_size("default", 5)
 	end,
 
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
@@ -82,8 +82,8 @@ local def_hopper = {
 		local meta2 = meta:to_table()
 		meta:from_table(oldmetadata)
 		local inv = meta:get_inventory()
-		for i = 1, inv:get_size("main") do
-			local stack = inv:get_stack("main", i)
+		for i = 1, inv:get_size("default") do
+			local stack = inv:get_stack("default", i)
 			if not stack:is_empty() then
 				local p = vector.offset(pos, math.random(0, 10) / 10 - 0.5, 0, math.random(0, 10) / 10 - 0.5)
 				minetest.add_item(p, stack)
@@ -275,7 +275,7 @@ local def_hopper_side = {
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", mcl_hoppers_formspec)
 		local inv = meta:get_inventory()
-		inv:set_size("main", 5)
+		inv:set_size("default", 5)
 	end,
 
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
@@ -283,8 +283,8 @@ local def_hopper_side = {
 		local meta2 = meta
 		meta:from_table(oldmetadata)
 		local inv = meta:get_inventory()
-		for i = 1, inv:get_size("main") do
-			local stack = inv:get_stack("main", i)
+		for i = 1, inv:get_size("default") do
+			local stack = inv:get_stack("default", i)
 			if not stack:is_empty() then
 				local p = vector.offset(pos, math.random(0, 10) / 10 - 0.5, 0, math.random(0, 10) / 10 - 0.5)
 				minetest.add_item(p, stack)
@@ -380,7 +380,7 @@ local function hopper_pull_from_mc(mc_ent, dest_pos, inv_size)
 
 	mcl_log("inv. size: " .. mc_ent._inv_size)
 	for i = 1, mc_ent._inv_size, 1 do
-		local stack = inv:get_stack("main", i)
+		local stack = inv:get_stack("default", i)
 
 		mcl_log("i: " .. tostring(i))
 		mcl_log("Name: [" .. tostring(stack:get_name()) .. "]")
@@ -388,10 +388,10 @@ local function hopper_pull_from_mc(mc_ent, dest_pos, inv_size)
 		mcl_log("stack max: " .. tostring(stack:get_stack_max()))
 
 		if not stack:get_name() or stack:get_name() ~= "" then
-			if dest_inv:room_for_item("main", stack:peek_item()) then
+			if dest_inv:room_for_item("default", stack:peek_item()) then
 				mcl_log("Room so unload")
-				dest_inv:add_item("main", stack:take_item())
-				inv:set_stack("main", i, stack)
+				dest_inv:add_item("default", stack:take_item())
+				inv:set_stack("default", i, stack)
 
 				-- Take one item and stop until next time
 				return
@@ -471,14 +471,14 @@ minetest.register_abm({
 		for _, object in pairs(minetest.get_objects_inside_radius(pos, 2)) do
 			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" and
 				not object:get_luaentity()._removed then
-				if inv and inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then
+				if inv and inv:room_for_item("default", ItemStack(object:get_luaentity().itemstring)) then
 					-- Item must get sucked in when the item just TOUCHES the block above the hopper
 					-- This is the reason for the Y calculation.
 					-- Test: Items on farmland and slabs get sucked, but items on full blocks don't
 					local posob = object:get_pos()
 					local posob_miny = posob.y + object:get_properties().collisionbox[2]
 					if math.abs(posob.x - pos.x) <= 0.5 and (posob_miny - pos.y < 1.5 and posob.y - pos.y >= 0.3) then
-						inv:add_item("main", ItemStack(object:get_luaentity().itemstring))
+						inv:add_item("default", ItemStack(object:get_luaentity().itemstring))
 						object:get_luaentity().itemstring = ""
 						object:remove()
 					end
@@ -585,7 +585,7 @@ minetest.register_abm({
 			-- Put fuel into fuel slot
 			local sinv = minetest.get_inventory({type = "node", pos = pos})
 			local dinv = minetest.get_inventory({type = "node", pos = front})
-			local slot_id, _ = mcl_util.get_eligible_transfer_item_slot(sinv, "main", dinv, "fuel", is_transferrable_fuel)
+			local slot_id, _ = mcl_util.get_eligible_transfer_item_slot(sinv, "default", dinv, "fuel", is_transferrable_fuel)
 			if slot_id then
 				mcl_util.move_item_container(pos, front, nil, slot_id, "fuel")
 			end
@@ -612,7 +612,7 @@ if minetest.get_modpath("mcl_composters") then
 
 				minetest.swap_node(uppos, {name = "mcl_composters:composter"})
 
-				inv:add_item("main", "mcl_bone_meal:bone_meal")
+				inv:add_item("default", "mcl_bone_meal:bone_meal")
 			end
 		end,
 	})
@@ -680,12 +680,12 @@ if minetest.get_modpath("mcl_composters") then
 				local inv = meta:get_inventory()
 
 				for i = 1, 5 do
-					local stack = inv:get_stack("main", i)
+					local stack = inv:get_stack("default", i)
 					local compchance = minetest.get_item_group(stack:get_name(), "compostability")
 
 					if compchance > 0 then
 						stack:take_item()
-						inv:set_stack("main", i, stack)
+						inv:set_stack("default", i, stack)
 
 						if compchance >= math.random(0, 100) then
 							mcl_dye.add_bone_meal_particle(vector.offset(downpos, 0, level / 8, 0))

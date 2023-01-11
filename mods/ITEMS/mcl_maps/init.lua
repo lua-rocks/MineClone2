@@ -199,8 +199,8 @@ local function fill_map(itemstack, placer, pointed_thing)
 			return new_map
 		else
 			local inv = placer:get_inventory()
-			if inv:room_for_item("main", new_map) then
-				inv:add_item("main", new_map)
+			if inv:room_for_item("default", new_map) then
+				inv:add_item("default", new_map)
 			else
 				minetest.add_item(placer:get_pos(), new_map)
 			end

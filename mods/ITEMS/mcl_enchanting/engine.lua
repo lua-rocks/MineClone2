@@ -503,14 +503,14 @@ function mcl_enchanting.show_enchanting_formspec(player)
 		.. "label[0,4;" .. C("#313131") .. F(S("Inventory")).."]"
 		.. mcl_formspec.get_itemslot_bg(0, 4.5, 9, 3)
 		.. mcl_formspec.get_itemslot_bg(0, 7.74, 9, 1)
-		.. "list[current_player;main;0,4.5;9,3;9]"
+		.. "list[current_player;default;0,4.5;9,3;9]"
 		.. "listring[current_player;enchanting_item]"
-		.. "listring[current_player;main]"
+		.. "listring[current_player;default]"
 		.. "listring[current_player;enchanting]"
-		.. "listring[current_player;main]"
+		.. "listring[current_player;default]"
 		.. "listring[current_player;enchanting_lapis]"
-		.. "listring[current_player;main]"
-		.. "list[current_player;main;0,7.74;9,1;]"
+		.. "listring[current_player;default]"
+		.. "list[current_player;default;0,7.74;9,1;]"
 		.. "real_coordinates[true]"
 		.. "image[3.15,0.6;7.6,4.1;mcl_enchanting_button_background.png]"
 	local itemstack = inv:get_stack("enchanting_item", 1)

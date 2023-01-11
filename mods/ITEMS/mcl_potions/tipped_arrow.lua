@@ -163,8 +163,8 @@ function mcl_potions.register_arrow(name, desc, color, def)
 			for _,obj in ipairs(objects) do
 				if obj:is_player() then
 					if not minetest.is_creative_enabled(obj:get_player_name()) then
-						if obj:get_inventory():room_for_item("main", "mcl_potions:"..name.."_arrow") then
-							obj:get_inventory():add_item("main", "mcl_potions:"..name.."_arrow")
+						if obj:get_inventory():room_for_item("default", "mcl_potions:"..name.."_arrow") then
+							obj:get_inventory():add_item("default", "mcl_potions:"..name.."_arrow")
 							minetest.sound_play("item_drop_pickup", {
 								pos = pos,
 								max_hear_distance = 16,

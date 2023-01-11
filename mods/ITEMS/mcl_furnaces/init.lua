@@ -10,9 +10,9 @@ local LIGHT_ACTIVE_FURNACE = 13
 local function active_formspec(fuel_percent, item_percent)
 	return "size[9,8.75]"..
 	"label[0,4;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"label[2.75,0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Furnace"))).."]"..
 	"list[context;src;2.75,0.5;1,1;]"..
@@ -30,18 +30,18 @@ local function active_formspec(fuel_percent, item_percent)
 	--"image_button[8,0;1,1;craftguide_book.png;craftguide;]"..
 	--"tooltip[craftguide;"..minetest.formspec_escape(S("Recipe book")).."]"..
 	"listring[context;dst]"..
-	"listring[current_player;main]"..
+	"listring[current_player;default]"..
 	"listring[context;src]"..
-	"listring[current_player;main]"..
+	"listring[current_player;default]"..
 	"listring[context;fuel]"..
-	"listring[current_player;main]"
+	"listring[current_player;default]"
 end
 
 local inactive_formspec = "size[9,8.75]"..
 	"label[0,4;"..minetest.formspec_escape(minetest.colorize("#313131", S("Inventory"))).."]"..
-	"list[current_player;main;0,4.5;9,3;9]"..
+	"list[current_player;default;0,4.5;9,3;9]"..
 	mcl_formspec.get_itemslot_bg(0,4.5,9,3)..
-	"list[current_player;main;0,7.74;9,1;]"..
+	"list[current_player;default;0,7.74;9,1;]"..
 	mcl_formspec.get_itemslot_bg(0,7.74,9,1)..
 	"label[2.75,0;"..minetest.formspec_escape(minetest.colorize("#313131", S("Furnace"))).."]"..
 	"list[context;src;2.75,0.5;1,1;]"..
@@ -57,11 +57,11 @@ local inactive_formspec = "size[9,8.75]"..
 	--"image_button[8,0;1,1;craftguide_book.png;craftguide;]"..
 	--"tooltip[craftguide;"..minetest.formspec_escape(S("Recipe book")).."]"..
 	"listring[context;dst]"..
-	"listring[current_player;main]"..
+	"listring[current_player;default]"..
 	"listring[context;src]"..
-	"listring[current_player;main]"..
+	"listring[current_player;default]"..
 	"listring[context;fuel]"..
-	"listring[current_player;main]"
+	"listring[current_player;default]"
 
 local receive_fields = function(pos, formname, fields, sender)
 	if fields.craftguide then

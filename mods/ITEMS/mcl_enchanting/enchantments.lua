@@ -384,7 +384,7 @@ mcl_experience.register_on_add_xp(function(player, xp)
 	local inv = player:get_inventory()
 
 	local candidates = {
-		{list = "main", index = player:get_wield_index()},
+		{list = "default", index = player:get_wield_index()},
 		{list = "armor", index = 2},
 		{list = "armor", index = 3},
 		{list = "armor", index = 4},

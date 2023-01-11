@@ -154,13 +154,13 @@ minetest.register_globalstep(function(_)
 
 					if object:get_luaentity()._magnet_timer >= 0 and
 						object:get_luaentity()._magnet_timer < item_drop_settings.magnet_time and inv and
-						inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then
+						inv:room_for_item("default", ItemStack(object:get_luaentity().itemstring)) then
 
 						-- Collection
 						if not object:get_luaentity()._removed then
 							-- Ignore if itemstring is not set yet
 							if object:get_luaentity().itemstring ~= "" then
-								inv:add_item("main", ItemStack(object:get_luaentity().itemstring))
+								inv:add_item("default", ItemStack(object:get_luaentity().itemstring))
 
 								check_pickup_achievements(object, player)
 
@@ -430,9 +430,9 @@ local function hopper_take_item(self, pos)
 				local current_itemstack = ItemStack(self.itemstring)
 
 				mcl_log("inv. size: " .. ent._inv_size)
-				if inv:room_for_item("main", current_itemstack) then
+				if inv:room_for_item("default", current_itemstack) then
 					mcl_log("Room")
-					inv:add_item("main", current_itemstack)
+					inv:add_item("default", current_itemstack)
 					self.object:get_luaentity().itemstring = ""
 					self.object:remove()
 					taken_items = true
@@ -445,7 +445,7 @@ local function hopper_take_item(self, pos)
 
 					-- This will take part of a floating item stack if no slot can hold the full amount
 					for i = 1, ent._inv_size, 1 do
-						local stack = inv:get_stack("main", i)
+						local stack = inv:get_stack("default", i)
 
 						mcl_log("i: " .. tostring(i))
 						mcl_log("Items remaining: " .. items_remaining)
@@ -465,14 +465,14 @@ local function hopper_take_item(self, pos)
 
 								items_remaining = items_remaining - room_for
 								stack:set_count(stack:get_stack_max())
-								inv:set_stack("main", i, stack)
+								inv:set_stack("default", i, stack)
 								taken_items = true
 							else
 								local new_stack_size = stack:get_count() + items_remaining
 								stack:set_count(new_stack_size)
 								mcl_log("We have more than enough space. Now holds: " .. new_stack_size)
 
-								inv:set_stack("main", i, stack)
+								inv:set_stack("default", i, stack)
 								items_remaining = 0
 
 								self.object:get_luaentity().itemstring = ""

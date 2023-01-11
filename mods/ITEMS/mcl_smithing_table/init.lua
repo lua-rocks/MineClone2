@@ -35,9 +35,9 @@ end
 local formspec = "size[9,9]" ..
 		"background[-0.19,-0.25;9.41,9.49;mcl_smithing_table_inventory.png]"..
 		"label[0,4.0;" .. minetest.formspec_escape(minetest.colorize(mcl_colors.DARK_GRAY, S("Inventory"))) .. "]" ..
-		"list[current_player;main;0,4.5;9,3;9]" ..
+		"list[current_player;default;0,4.5;9,3;9]" ..
 		mcl_formspec.get_itemslot_bg(0,4.5,9,3) ..
-		"list[current_player;main;0,7.74;9,1;]" ..
+		"list[current_player;default;0,7.74;9,1;]" ..
 		mcl_formspec.get_itemslot_bg(0,7.74,9,1) ..
 		"list[context;diamond_item;1,2.5;1,1;]" ..
 		mcl_formspec.get_itemslot_bg(1,2.5,1,1) ..
@@ -47,9 +47,9 @@ local formspec = "size[9,9]" ..
 		mcl_formspec.get_itemslot_bg(8,2.5,1,1) ..
 		"label[3,0.1;" .. minetest.formspec_escape(minetest.colorize(mcl_colors.DARK_GRAY, S("Upgrade Gear"))) .. "]" ..
 		"listring[context;output]"..
-		"listring[current_player;main]"..
+		"listring[current_player;default]"..
 		"listring[context;input]"..
-		"listring[current_player;main]"
+		"listring[current_player;default]"
 
 local function reset_upgraded_item(pos)
 	local inv = minetest.get_meta(pos):get_inventory()

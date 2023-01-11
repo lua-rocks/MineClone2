@@ -124,8 +124,8 @@ local fish = function(itemstack, player, pointed_thing)
 								item = ItemStack()
 							end
 							local inv = player:get_inventory()
-							if inv:room_for_item("main", item) then
-								inv:add_item("main", item)
+							if inv:room_for_item("default", item) then
+								inv:add_item("default", item)
 								if item:get_name() == "mcl_mobitems:leather" then
 									awards.unlock(player:get_player_name(), "mcl:killCow")
 								end

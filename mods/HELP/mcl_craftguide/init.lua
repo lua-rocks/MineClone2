@@ -101,7 +101,7 @@ local group_names = {
 
 
 local item_lists = {
-	"main",
+	"default",
 	"craft",
 	"craftpreview",
 }

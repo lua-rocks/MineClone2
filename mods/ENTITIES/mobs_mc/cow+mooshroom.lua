@@ -69,11 +69,11 @@ local cow_def = {
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "mcl_buckets:bucket_empty" and clicker:get_inventory() then
 			local inv = clicker:get_inventory()
-			inv:remove_item("main", "mcl_buckets:bucket_empty")
+			inv:remove_item("default", "mcl_buckets:bucket_empty")
 			minetest.sound_play("mobs_mc_cow_milk", {pos=self.object:get_pos(), gain=0.6})
 			-- if room add bucket of milk to inventory, otherwise drop as item
-			if inv:room_for_item("main", {name = "mcl_mobitems:milk_bucket"}) then
-				clicker:get_inventory():add_item("main", "mcl_mobitems:milk_bucket")
+			if inv:room_for_item("default", {name = "mcl_mobitems:milk_bucket"}) then
+				clicker:get_inventory():add_item("default", "mcl_mobitems:milk_bucket")
 			else
 				local pos = self.object:get_pos()
 				pos.y = pos.y + 0.5
@@ -122,16 +122,16 @@ mooshroom_def.on_rightclick = function(self, clicker)
 
 		if not minetest.is_creative_enabled(clicker:get_player_name()) then
 			item:add_wear(mobs_mc.shears_wear)
-			clicker:get_inventory():set_stack("main", clicker:get_wield_index(), item)
+			clicker:get_inventory():set_stack("default", clicker:get_wield_index(), item)
 		end
 	-- Use bucket to milk
 	elseif item:get_name() == "mcl_buckets:bucket_empty" and clicker:get_inventory() then
 		local inv = clicker:get_inventory()
-		inv:remove_item("main", "mcl_buckets:bucket_empty")
+		inv:remove_item("default", "mcl_buckets:bucket_empty")
 		minetest.sound_play("mobs_mc_cow_milk", {pos=self.object:get_pos(), gain=0.6})
 		-- If room, add milk to inventory, otherwise drop as item
-		if inv:room_for_item("main", {name="mcl_mobitems:milk_bucket"}) then
-			clicker:get_inventory():add_item("main", "mcl_mobitems:milk_bucket")
+		if inv:room_for_item("default", {name="mcl_mobitems:milk_bucket"}) then
+			clicker:get_inventory():add_item("default", "mcl_mobitems:milk_bucket")
 		else
 			local pos = self.object:get_pos()
 			pos.y = pos.y + 0.5
@@ -140,11 +140,11 @@ mooshroom_def.on_rightclick = function(self, clicker)
 	-- Use bowl to get mushroom stew
 	elseif item:get_name() == "mcl_core:bowl" and clicker:get_inventory() then
 		local inv = clicker:get_inventory()
-		inv:remove_item("main", "mcl_core:bowl")
+		inv:remove_item("default", "mcl_core:bowl")
 		minetest.sound_play("mobs_mc_cow_mushroom_stew", {pos=self.object:get_pos(), gain=0.6})
 		-- If room, add mushroom stew to inventory, otherwise drop as item
-		if inv:room_for_item("main", {name="mcl_mushrooms:mushroom_stew"}) then
-			clicker:get_inventory():add_item("main", "mcl_mushrooms:mushroom_stew")
+		if inv:room_for_item("default", {name="mcl_mushrooms:mushroom_stew"}) then
+			clicker:get_inventory():add_item("default", "mcl_mushrooms:mushroom_stew")
 		else
 			local pos = self.object:get_pos()
 			pos.y = pos.y + 0.5
