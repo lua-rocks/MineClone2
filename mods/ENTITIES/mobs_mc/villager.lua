@@ -1507,8 +1507,8 @@ local function show_trade_formspec(playername, trader, tradenum)
 	.."background[-0.19,-0.25;9.41,9.49;mobs_mc_trading_formspec_bg.png]"
 	..disabled_img
 .."label[3,0;"..F(minetest.colorize("#313131", S(profession).." - "..tiername)) .."]"
-	.."list[current_player;default;0,4.5;9,3;9]"
-	.."list[current_player;default;0,7.74;9,1;]"
+	.."list[current_player;default;0,4.5;9,3;]"
+	.."list[current_player;main;0,7.74;9,1;]"
 	..b_prev..b_next
 	.."["..tradeinv..";wanted;2,1;2,1;]"
 	.."item_image[2,1;1,1;"..wanted1:to_string().."]"
@@ -1522,6 +1522,10 @@ local function show_trade_formspec(playername, trader, tradenum)
 	.."listring[current_player;default]"
 	.."listring["..tradeinv..";input]"
 	.."listring[current_player;default]"
+	.."listring["..tradeinv..";output]"
+	.."listring[current_player;main]"
+	.."listring["..tradeinv..";input]"
+	.."listring[current_player;main]"
 	minetest.sound_play("mobs_mc_villager_trade", {to_player = playername,object=trader.object}, true)
 	minetest.show_formspec(playername, tradeinv_name, formspec)
 end
@@ -1601,6 +1605,8 @@ local function return_item(itemstack, dropper, pos, inv_p)
 	if dropper:is_player() then
 		-- Return to main inventory
 		if inv_p:room_for_item("default", itemstack) then
+			inv_p:add_item("default", itemstack)
+		elseif inv_p:room_for_item("main", itemstack) then
 			inv_p:add_item("default", itemstack)
 		else
 			-- Drop item on the ground
