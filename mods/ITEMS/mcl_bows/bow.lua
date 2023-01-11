@@ -79,20 +79,21 @@ local function get_arrow(player)
 	local inv = player:get_inventory()
 	local arrow_stack, arrow_stack_id
 	for _, inv_name in ipairs({"default", "main"}) do
-		for i=1, inv:get_size(inv_name) do
+		for i=inv:get_size(inv_name), 0, -1 do
 			local it = inv:get_stack(inv_name, i)
 			if not it:is_empty() and minetest.get_item_group(it:get_name(), "ammo_bow") ~= 0 then
 				arrow_stack = it
 				arrow_stack_id = i
+				arrow_stack_inv_name = inv_name
 				break
 			end
 		end
 	end
-	return arrow_stack, arrow_stack_id
+	return arrow_stack, arrow_stack_id, arrow_stack_inv_name
 end
 
 local function player_shoot_arrow(itemstack, player, power, damage, is_critical)
-	local arrow_stack, arrow_stack_id = get_arrow(player)
+	local arrow_stack, arrow_stack_id, arrow_stack_inv_name = get_arrow(player)
 	local arrow_itemstring
 	local has_infinity_enchantment = mcl_enchanting.has_enchantment(player:get_wielded_item(), "infinity")
 	local infinity_used = false
@@ -114,7 +115,7 @@ local function player_shoot_arrow(itemstack, player, power, damage, is_critical)
 			arrow_stack:take_item()
 		end
 		local inv = player:get_inventory()
-		inv:set_stack("default", arrow_stack_id, arrow_stack)
+		inv:set_stack(arrow_stack_inv_name, arrow_stack_id, arrow_stack)
 	end
 	if not arrow_itemstring then
 		return false

@@ -82,16 +82,17 @@ local function get_arrow(player)
 	local inv = player:get_inventory()
 	local arrow_stack, arrow_stack_id
 	for _, inv_name in ipairs({"default", "main"}) do
-		for i=1, inv:get_size(inv_name) do
+		for i=inv:get_size(inv_name), 0, -1 do
 			local it = inv:get_stack(inv_name, i)
 			if not it:is_empty() and minetest.get_item_group(it:get_name(), "ammo_crossbow") ~= 0 then
 				arrow_stack = it
 				arrow_stack_id = i
+				arrow_stack_inv_name = inv_name
 				break
 			end
 		end
 	end
-	return arrow_stack, arrow_stack_id
+	return arrow_stack, arrow_stack_id, arrow_stack_inv_name
 end
 
 local function player_shoot_arrow(wielditem, player, power, damage, is_critical)
@@ -262,7 +263,7 @@ controls.register_on_release(function(player, key, time)
 	--local inv = minetest.get_inventory({type="player", name=player:get_player_name()})
 	local wielditem = player:get_wielded_item()
 	if wielditem:get_name()=="mcl_bows:crossbow_2" and get_arrow(player) or wielditem:get_name()=="mcl_bows:crossbow_2" and minetest.is_creative_enabled(player:get_player_name()) or wielditem:get_name()=="mcl_bows:crossbow_2_enchanted" and get_arrow(player) or wielditem:get_name()=="mcl_bows:crossbow_2_enchanted" and minetest.is_creative_enabled(player:get_player_name()) then
-		local arrow_stack, arrow_stack_id = get_arrow(player)
+		local arrow_stack, arrow_stack_id, arrow_stack_inv_name = get_arrow(player)
 		local arrow_itemstring
 
 		if minetest.is_creative_enabled(player:get_player_name()) then
@@ -274,7 +275,7 @@ controls.register_on_release(function(player, key, time)
 		else
 			arrow_itemstring = arrow_stack:get_name()
 			arrow_stack:take_item()
-			player:get_inventory():set_stack("default", arrow_stack_id, arrow_stack)
+			player:get_inventory():set_stack(arrow_stack_inv_name, arrow_stack_id, arrow_stack)
 		end
 
 		wielditem:get_meta():set_string("arrow", arrow_itemstring)
