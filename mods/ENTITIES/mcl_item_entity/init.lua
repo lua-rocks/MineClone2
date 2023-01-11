@@ -152,15 +152,25 @@ minetest.register_globalstep(function(_)
 					object:get_luaentity() and object:get_luaentity().name == "__builtin:item" and object:get_luaentity()._magnet_timer
 					and (object:get_luaentity()._insta_collect or (object:get_luaentity().age > item_drop_settings.age)) then
 
+					local itemstring = object:get_luaentity().itemstring
 					if object:get_luaentity()._magnet_timer >= 0 and
 						object:get_luaentity()._magnet_timer < item_drop_settings.magnet_time and inv and
-						inv:room_for_item("default", ItemStack(object:get_luaentity().itemstring)) then
+						(
+							inv:room_for_item("default", ItemStack(itemstring)) or
+						  inv:room_for_item("main", ItemStack(itemstring)) 
+					  ) then
 
 						-- Collection
 						if not object:get_luaentity()._removed then
 							-- Ignore if itemstring is not set yet
-							if object:get_luaentity().itemstring ~= "" then
-								inv:add_item("default", ItemStack(object:get_luaentity().itemstring))
+							if itemstring ~= "" then
+								-- Check if we have this itemstack on panel
+								local lists = inv:get_list("main")
+								if inv:contains_item("main", itemstring) then
+									inv:add_item("default", inv:add_item("main", itemstring))
+								else
+									inv:add_item("default", itemstring)
+								end
 
 								check_pickup_achievements(object, player)
 
