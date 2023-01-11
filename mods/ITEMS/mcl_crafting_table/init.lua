@@ -15,9 +15,9 @@ function mcl_crafting_table.show_crafting_form(player)
 		"size[9,8.75]"..
 		"image[4.7,1.5;1.5,1;gui_crafting_arrow.png]"..
 		"label[0,4;"..formspec_escape(C(text_color, S("Inventory"))).."]"..
-		"list[current_player;default;0,4.5;9,3;9]"..
+		"list[current_player;default;0,4.5;9,3;]"..
 		itemslot_bg(0,4.5,9,3)..
-		"list[current_player;default;0,7.74;9,1;]"..
+		"list[current_player;main;0,7.74;9,1;]"..
 		itemslot_bg(0,7.74,9,1)..
 		"label[1.75,0;"..formspec_escape(C(text_color, S("Crafting"))).."]"..
 		"list[current_player;craft;1.75,0.5;3,3;]"..
@@ -26,6 +26,8 @@ function mcl_crafting_table.show_crafting_form(player)
 		itemslot_bg(6.1,1.5,1,1)..
 		"image_button[0.75,1.5;1,1;craftguide_book.png;__mcl_craftguide;]"..
 		"tooltip[__mcl_craftguide;"..formspec_escape(S("Recipe book")).."]"..
+		"listring[current_player;main]"..
+		"listring[current_player;craft]" ..
 		"listring[current_player;default]"..
 		"listring[current_player;craft]"
 	)
